@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/sold_out_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="17dp"
+        android:text="@string/sold_out"
+        android:textColor="@color/blackTxt"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/book_image_view2"
+        android:layout_width="100dp"
+        android:layout_height="145dp"
+        android:layout_margin="15dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@+id/book_image_view2"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title_text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/lineColor"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/writer_text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textColor="@color/lineColor"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/publish_text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textColor="@color/lineColor"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/date_text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:text="TextView"
+            android:textColor="@color/lineColor"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/expectation_price_txt2"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/lineColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/get_price_txt2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/lineColor"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentEnd="false"
+        android:layout_below="@+id/book_image_view2"
+        android:background="@color/lineColor" />
+</RelativeLayout>
