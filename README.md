@@ -16,10 +16,19 @@ Thank you.
 
 Main functions:
 1. Create an account & Sign in
+  - Interwork with Firebase
 
 2. book store
-  - search function
-  - register the book
-  - show my book
+  - The list of books using recyclerview
+  - Book search function
+  - Register to sell a book
+    : Store all of informations of the book in Firebase storage
+      (ex. title, author, price, publication, date, pictures, conditions, the way of trade etc.)
+  - Detail of the book when you click a item of list.
+    : All of informations of the book
+    : Check whether book is sold or not
+  - Show my uploaded book
+    : Differ to each user
   
 3. Chat function
+  - Not implemented yet
