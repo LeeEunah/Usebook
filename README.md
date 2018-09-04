@@ -31,4 +31,3 @@ Main functions:
     : Differ to each user
   
 3. Chat function
-  - Not implemented yet
