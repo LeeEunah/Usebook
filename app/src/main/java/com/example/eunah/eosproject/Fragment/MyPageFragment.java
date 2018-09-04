@@ -26,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -74,10 +75,10 @@ public class MyPageFragment extends Fragment {
         checkDataList.clear();
         fileNameDataList.clear();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.addChildEventListener(new ChildEventListener() {
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("book");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()){
                     textView2.setText(null);
                     String userId = fileSnapshot.child("id").getValue(String.class);
@@ -131,21 +132,6 @@ public class MyPageFragment extends Fragment {
                     }
                 }
                 refreshData();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override

@@ -14,5 +14,6 @@ public class ChatData {
     public static class Comment{
         public String userId;
         public String message;
+        public String date;
     }
 }

@@ -462,13 +462,15 @@ public class SellActivity extends AppCompatActivity {
             FirebaseStorage storage = FirebaseStorage.getInstance();
 
             Log.e(TAG, "filename: "+filename);
+//            Log.e(TAG, "filePAth: "+filePath);
             StorageReference storageRef = storage.getReferenceFromUrl("gs://usebook-a3f0b.appspot.com")
                     .child("images/"+filename);
             storageRef.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Uri downlvoadUrl = taskSnapshot.getDownloadUrl();
+                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+//                            Log.e(TAG, "download: "+ downloadUrl);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

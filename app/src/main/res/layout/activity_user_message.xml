@@ -27,9 +27,12 @@
         android:tint="@color/textColor"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/user_message_recyclerview"
+    <FrameLayout
+        android:id="@+id/user_message_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/textView23" />
+        android:layout_below="@+id/textView23">
+
+    </FrameLayout>
+
 </RelativeLayout>

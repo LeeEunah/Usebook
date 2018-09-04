@@ -595,15 +595,6 @@
                 android:textColor="@color/blackTxt"
                 android:textSize="16sp" />
 
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:layout_below="@+id/want_place_txt"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="8dp"
-                app:srcCompat="@drawable/logo" />
         </RelativeLayout>
 
     </LinearLayout>

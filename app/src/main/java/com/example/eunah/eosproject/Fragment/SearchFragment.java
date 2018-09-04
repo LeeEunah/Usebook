@@ -66,6 +66,7 @@ public class SearchFragment extends Fragment{
 
         Bundle bundle = getArguments();
         searchTxt = bundle.getString("word");
+//        Log.e(TAG, "bundleTxt: "+searchTxt);
         search();
     }
 
@@ -86,16 +87,16 @@ public class SearchFragment extends Fragment{
 
     public void search(){
         if(searchTxt != null){
-            databaseReference = FirebaseDatabase.getInstance().getReference();
-            databaseReference.addChildEventListener(new ChildEventListener() {
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("book");
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                public void onDataChange(DataSnapshot dataSnapshot) {
                     bookDataList.clear();
                     checkDataList.clear();
                     fileNameDataList.clear();
                     for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()){
                         String searchBook = fileSnapshot.child("dTitle").getValue(String.class);
-                        if(searchBook.contains(searchTxt)){
+                        if(searchBook.toLowerCase().contains(searchTxt.toLowerCase())){
                             Boolean underlinePencil = fileSnapshot.child("checkData").child("underlinePencil").getValue(Boolean.class);
                             Boolean underlinePen = fileSnapshot.child("checkData").child("underlinePen").getValue(Boolean.class);
                             Boolean writePencil = fileSnapshot.child("checkData").child("writePencil").getValue(Boolean.class);
@@ -136,29 +137,11 @@ public class SearchFragment extends Fragment{
                             fileNameDataList.add(fileNameData);
 
                             textView.setText(getResources().getString(R.string.search_result, bookDataList.size()));
-                            Log.e(TAG, "bookData: "+bookDataList);
-                        }
-                        else{
-                            textView.setText(getResources().getString(R.string.search_result, bookDataList.size()));
-                            textView2.setText(getResources().getString(R.string.no_my_book));
+                            if (bookDataList.size() == 0)
+                                textView2.setText(getResources().getString(R.string.no_my_book));
                         }
                     }
                     refreshData();
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
                 }
 
                 @Override
@@ -181,7 +164,6 @@ public class SearchFragment extends Fragment{
     private void refreshData() {
         Log.e(TAG, "refreshData: "+storeAdapter);
         if(storeAdapter==null){
-
             searchRecyclerview.setAdapter(new StoreAdapter(getContext(), bookDataList, checkDataList, fileNameDataList));
         }else{
             Log.e(TAG, "notifyData");
