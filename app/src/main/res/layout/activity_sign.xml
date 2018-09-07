@@ -26,13 +26,13 @@
 
         <TextView
             android:id="@+id/textView9"
-            android:layout_width="80dp"
+            android:layout_width="85dp"
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
             android:gravity="center"
             android:text="@string/id"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="19sp" />
 
         <EditText
             android:id="@+id/sign_in_id_edit"
@@ -52,13 +52,13 @@
 
         <TextView
             android:id="@+id/textView10"
-            android:layout_width="80dp"
+            android:layout_width="85dp"
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
             android:gravity="center"
             android:text="@string/password"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="19sp" />
 
         <EditText
             android:id="@+id/sign_in_password_edit"

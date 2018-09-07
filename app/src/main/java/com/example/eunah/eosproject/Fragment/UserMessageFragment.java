@@ -21,6 +21,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,46 +61,24 @@ public class UserMessageFragment extends Fragment{
 
     public void UserMessageList(){
         userMessageDataList.clear();
-        firebaseDatabase.getReference().child("chatrooms").addChildEventListener(new ChildEventListener() {
+        firebaseDatabase.getReference().child("chatrooms").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                String recentDate="", recentMessage="", destinationUser="", user="";
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot item : dataSnapshot.getChildren()){
-                    if(item.getKey().equals("users")){
-                            destinationUser = item.child("destination").getValue(String.class);
-                            user = item.child("user").getValue(String.class);
-                    }
-                    if(item.getKey().equals("comments")){
-                        for (DataSnapshot contents : item.getChildren()){
+                    destinationUser = item.child("users").child("destination").getValue(String.class);
+                    user = item.child("users").child("user").getValue(String.class);
+                    if (myId.equals(destinationUser) || myId.equals(user)){
+                        for (DataSnapshot contents : item.child("comments").getChildren()){
                             recentDate = contents.child("date").getValue(String.class);
                             recentMessage = contents.child("message").getValue(String.class);
-//                            Log.e(TAG, "content: "+contents);
                         }
-
-                    }
+                        userMessageData = new UserMessageData(recentDate, destinationUser, user, myId, recentMessage);
+                        userMessageDataList.add(userMessageData);
+                    } else continue;
                 }
-                Log.e(TAG, "recentDate: "+recentDate);
-                Log.e(TAG, "destination: "+destinationUser);
-                Log.e(TAG, "recentMessage: "+recentMessage);
-                Log.e(TAG, "userId: "+user);
-                userMessageData = new UserMessageData(recentDate, destinationUser, user, myId, recentMessage);
-                userMessageDataList.add(userMessageData);
+
+                Log.e(TAG, "Data: "+ userMessageDataList.size());
                 refreshData();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override

@@ -43,9 +43,9 @@ public class UserMessageAdapter extends RecyclerView.Adapter<UserMessageAdapter.
         final UserMessageData userMessageData = userMessageList.get(position);
         ((MessageViewHolder)holder).contentTxt.setText(userMessageData.getMessage());
         ((MessageViewHolder)holder).dateTxt.setText(userMessageData.getDate());
-        Log.e(TAG, "user: "+userMessageData.getUserId());
-        Log.e(TAG, "desti: "+userMessageData.getDestinationUserId());
-        Log.e(TAG, "my: "+userMessageData.getMyId());
+//        Log.e(TAG, "user: "+userMessageData.getUserId());
+//        Log.e(TAG, "desti: "+userMessageData.getDestinationUserId());
+//        Log.e(TAG, "my: "+userMessageData.getMyId());
 
 
         if (userMessageData.getDestinationUserId().equals(userMessageData.getMyId())){

@@ -79,13 +79,6 @@ public class ChatActivity extends AppCompatActivity {
             firebaseDatabase.getReference().child("chatrooms").child(chatRoomUid).child("comments").push().setValue(comment);
             chatSendEdit.setText(null);
         }
-//        if(comment.message.getBytes().length <= 0 && check == 1){
-//            Toast.makeText(this, getResources().getString(R.string.empty_editText), Toast.LENGTH_LONG).show();
-//        }
-//        if (check == 1){
-//            firebaseDatabase.getReference().child("chatrooms").child(chatRoomUid).child("comments").push().setValue(comment);
-//            chatSendEdit.setText(null);
-//        }
     }
 
     public void checkChatRoom(){
