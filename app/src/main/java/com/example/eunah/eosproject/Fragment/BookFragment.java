@@ -99,6 +99,7 @@ public class BookFragment extends Fragment{
     }
 
     public void dataRecall(){
+        Log.e(TAG, "dataRecall");
         bookDataList.clear();
         checkDataList.clear();
         fileNameDataList.clear();
@@ -150,9 +151,11 @@ public class BookFragment extends Fragment{
                         fileNameData = new FileNameData(coverFileName, insideFileName);
                         fileNameDataList.add(fileNameData);
                     }
-                    if(bookDataList.size() == 0){
-                        textView2.setText(getResources().getString(R.string.no_my_book));
-                    }
+                }
+                Log.e(TAG, "hi");
+                if(bookDataList.size() == 0){
+                    Log.e(TAG, "zero");
+                    textView2.setText(getResources().getString(R.string.no_my_book));
                 }
                 refreshData();
             }

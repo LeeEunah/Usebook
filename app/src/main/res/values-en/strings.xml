@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Used book</string>
+    <string name="app_name">Used Book</string>
     <string name="message_title">Message</string>
     <string name="book_shop_title">Book Store</string>
     <string name="book_search">Search your book!</string>
@@ -14,12 +14,12 @@
     <string name="book_name">Title</string>
     <string name="book_author">Author</string>
     <string name="book_publish">Publisher</string>
-    <string name="book_date">Publication Date(ex.09.04.2018)</string>
-    <string name="book_price">Fixed Price(ex.17000)</string>
+    <string name="book_date">Publication Date(ex.MM/DD/YYYY)</string>
+    <string name="book_price">Price(ex.50)</string>
     <string name="write_trace">Is there any writing traces?</string>
-    <string name="line_pencil">Underline(Pencil/Mechanical pencil)</string>
+    <string name="line_pencil">Underline(Pencil)</string>
     <string name="line_pen">Underline(Pen/Highlighter)</string>
-    <string name="write_pencil">Writing(Pencil/Mechanical pencil)</string>
+    <string name="write_pencil">Writing(Pencil)</string>
     <string name="write_pen">Writing(Pen/Highlighter)</string>
     <string name="research">Search Again</string>
     <string name="next">Next</string>
@@ -45,11 +45,11 @@
     <string name="send_message_to_seller">Send message to seller</string>
     <string name="publish_date">Publication Date</string>
     <string name="book_state">Condition of the book</string>
-    <string name="underline_trace">Underline trace</string>
-    <string name="write_trace2">Writing trace</string>
-    <string name="name">Name or signature</string>
-    <string name="discolor">Page discoloration</string>
-    <string name="damage">Page damage</string>
+    <string name="underline_trace">Underline\ntrace</string>
+    <string name="write_trace2">Writing\ntrace</string>
+    <string name="name">Name or\nsignature</string>
+    <string name="discolor">Page\ndiscoloration</string>
+    <string name="damage">Page\ndamage</string>
     <string name="trade">How to deal</string>
     <string name="want_place">Place</string>
     <string name="empty_id">Input your e-mail</string>
@@ -68,7 +68,7 @@
     <string name="empty_expectationPrice">Input price you desired to sell</string>
     <string name="not_here">No</string>
     <string name="here">Yes</string>
-    <string name="pencil_or_sharp">Pencil/Mechanical Pencil</string>
+    <string name="pencil_or_sharp">Pencil</string>
     <string name="pen_or_light">Pen/Highlighter</string>
     <string name="clean">Clean</string>
     <string name="not_clean">Not clean</string>
@@ -77,7 +77,7 @@
     <string name="empty_write">Select whether you write or not</string>
     <string name="empty_tradeway">Select the way you wanted to deal</string>
     <string name="empty_preserve">Select the condition of your book</string>
-    <string name="price_won">$ %d</string>
+    <string name="price_won">$ %s</string>
     <string name="empty_area">Input area you wanted to deal</string>
     <string name="empty_extra_explanation">Press \'Skip\' if you don\'t want to write additional explanation</string>
     <string name="select_camera">Choose pictures</string>
@@ -92,4 +92,8 @@
     <string name="book_is_sold_out">This book is sold out</string>
     <string name="send">Send</string>
     <string name="empty_editText">Enter the text</string>
+    <string name="publisher">%s</string>
+    <string name="writer">by %s</string>
+    <string name="date">%s. %s, %s</string>
+    <string name="date_format">Please match the date format</string>
 </resources>

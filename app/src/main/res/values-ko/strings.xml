@@ -77,7 +77,7 @@
     <string name="empty_write">필기 여부를 선택하여주세요.</string>
     <string name="empty_tradeway">거래 방법을 선택하여주세요.</string>
     <string name="empty_preserve">보존 상태를 선택하여주세요.</string>
-    <string name="price_won">%d 원</string>
+    <string name="price_won">%s 원</string>
     <string name="empty_area">거래 지역을 입력해주세요.</string>
     <string name="empty_extra_explanation">추가 설명을 적지 않으려면 \'건너뛰기\'를 누르세요.</string>
     <string name="select_camera">사진 선택</string>
@@ -92,4 +92,8 @@
     <string name="book_is_sold_out">이 책은 판매 완료되었습니다.</string>
     <string name="send">전송</string>
     <string name="empty_editText">텍스트를 입력하세요.</string>
+    <string name="publisher">%s 출판사</string>
+    <string name="writer">%s 지음</string>
+    <string name="date">%s월 %s일 %s년</string>
+    <string name="date_format">날짜 형식을 맞춰주세요.</string>
 </resources>

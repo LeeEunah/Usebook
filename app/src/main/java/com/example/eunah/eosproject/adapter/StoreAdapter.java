@@ -77,11 +77,12 @@ public class StoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
             if(bookData != null){
                 ((ViewHolder)holder).bookTitle.setText(bookData.getdTitle());
-                ((ViewHolder)holder).bookWriter.setText(bookData.getdWriter()+" 지음");
-                ((ViewHolder)holder).bookPublish.setText(bookData.getdPublish()+" 출판");
-                ((ViewHolder)holder).bookDate.setText(bookData.getdDate());
-                ((ViewHolder)holder).bookPrice.setText(bookData.getdPrice()+" 원");
-                ((ViewHolder)holder).bookExpectationPrice.setText(bookData.getdExpectationPrice()+" 원");
+                ((ViewHolder)holder).bookWriter.setText(context.getResources().getString(R.string.writer, bookData.getdWriter()));
+                ((ViewHolder)holder).bookPublish.setText(context.getResources().getString(R.string.publisher, bookData.getdPublish()));
+                String date = bookData.getdDate();
+                ((ViewHolder)holder).bookDate.setText(context.getResources().getString(R.string.date, date.substring(0, 2), date.substring(2, 4), date.substring(4)));
+                ((ViewHolder)holder).bookPrice.setText(context.getResources().getString(R.string.price_won, bookData.getdPrice()));
+                ((ViewHolder)holder).bookExpectationPrice.setText(context.getResources().getString(R.string.price_won, bookData.getdExpectationPrice()));
                 coverRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -105,11 +106,12 @@ public class StoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 ColorMatrixColorFilter gray = new ColorMatrixColorFilter(matrix);
 
                 ((SoldOutViewHolder)holder).bookTitle2.setText(bookData.getdTitle());
-                ((SoldOutViewHolder)holder).bookWriter2.setText(bookData.getdWriter()+" 지음");
-                ((SoldOutViewHolder)holder).bookPublish2.setText(bookData.getdPublish()+" 출판");
-                ((SoldOutViewHolder)holder).bookDate2.setText(bookData.getdDate());
-                ((SoldOutViewHolder)holder).bookPrice2.setText(bookData.getdPrice()+" 원");
-                ((SoldOutViewHolder)holder).bookExpectationPrice2.setText(bookData.getdExpectationPrice()+" 원");
+                ((SoldOutViewHolder)holder).bookWriter2.setText(context.getResources().getString(R.string.writer, bookData.getdWriter()));
+                ((SoldOutViewHolder)holder).bookPublish2.setText(context.getResources().getString(R.string.publisher, bookData.getdPublish()));
+                String date = bookData.getdDate();
+                ((SoldOutViewHolder)holder).bookDate2.setText(context.getResources().getString(R.string.date, date.substring(0, 2), date.substring(2, 4), date.substring(4)));
+                ((SoldOutViewHolder)holder).bookPrice2.setText(context.getResources().getString(R.string.price_won, bookData.getdPrice()));
+                ((SoldOutViewHolder)holder).bookExpectationPrice2.setText(context.getResources().getString(R.string.price_won, bookData.getdExpectationPrice()));
                 ((SoldOutViewHolder)holder).bookImage2.setColorFilter(gray);
 
                 coverRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

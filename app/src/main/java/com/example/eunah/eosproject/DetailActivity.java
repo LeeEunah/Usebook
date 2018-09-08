@@ -141,8 +141,8 @@ public class DetailActivity extends AppCompatActivity {
         authorTxt.setText(bookDataList.get(position).getdWriter());
         publishTxt.setText(bookDataList.get(position).getdPublish());
         publishDateTxt.setText(bookDataList.get(position).getdDate());
-        priceTxt.setText(bookDataList.get(position).getdPrice()+" 원");
-        expectationPriceTxt.setText(bookDataList.get(position).getdExpectationPrice()+" 원");
+        priceTxt.setText(getResources().getString(R.string.price_won, bookDataList.get(position).getdPrice()));
+        expectationPriceTxt.setText(getResources().getString(R.string.price_won, bookDataList.get(position).getdExpectationPrice()));
         idTxt.setText(bookDataList.get(position).getId());
         priceTxt.setPaintFlags(priceTxt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         getAreaTxt.setText(bookDataList.get(position).getArea());

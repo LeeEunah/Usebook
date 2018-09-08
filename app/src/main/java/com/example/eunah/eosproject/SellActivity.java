@@ -321,6 +321,10 @@ public class SellActivity extends AppCompatActivity {
             return false;
         }
 
+        if(bookData.getdDate().length() < 8){
+            Toast.makeText(this, getResources().getString(R.string.date_format), Toast.LENGTH_LONG).show();
+        }
+
         if(TextUtils.isEmpty(bookData.getdPrice())){
             Toast.makeText(this, getResources().getString(R.string.empty_bookPrice), Toast.LENGTH_LONG).show();
             return false;

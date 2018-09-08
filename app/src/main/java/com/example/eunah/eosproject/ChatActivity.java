@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -180,14 +181,9 @@ public class ChatActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            Log.e(TAG, "ChatUser: "+commentsList.get(position).userId);
-
-
             ((OthersChatViewHolder)holder).chatTxt.setText(commentsList.get(position).message) ;
             ((OthersChatViewHolder)holder).userIdTxt.setText(commentsList.get(position).userId);
             ((OthersChatViewHolder)holder).dateTxt.setText(commentsList.get(position).date);
-
-
         }
 
         @Override
