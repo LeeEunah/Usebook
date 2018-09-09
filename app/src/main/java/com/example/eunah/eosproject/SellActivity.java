@@ -46,6 +46,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class SellActivity extends AppCompatActivity {
 
@@ -78,12 +79,22 @@ public class SellActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell);
 
+        Locale locale = getResources().getConfiguration().locale;
+        String language = locale.getLanguage();
+
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         int index = user.getEmail().indexOf("@");
         userId = user.getEmail().substring(0, index);
-        databaseBook = FirebaseDatabase.getInstance().getReference("book");
-        book_id = databaseBook.push().getKey();
+
+        if (language == "en"){
+            databaseBook = FirebaseDatabase.getInstance().getReference("books_en");
+            book_id = databaseBook.push().getKey();
+        }
+        if (language == "ko"){
+            databaseBook = FirebaseDatabase.getInstance().getReference("books_ko");
+            book_id = databaseBook.push().getKey();
+        }
 
         writeTrace = (LinearLayout)findViewById(R.id.write_trace_layout);
         preserveState = (LinearLayout)findViewById(R.id.preserve_state_layout);

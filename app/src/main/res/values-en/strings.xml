@@ -96,4 +96,5 @@
     <string name="writer">by %s</string>
     <string name="date">%s. %s, %s</string>
     <string name="date_format">Please match the date format</string>
+    <string name="language">English</string>
 </resources>

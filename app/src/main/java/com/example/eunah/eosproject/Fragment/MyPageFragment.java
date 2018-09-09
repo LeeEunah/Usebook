@@ -29,6 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Locale;
 
 /**
  * Created by leeeunah on 2018. 2. 14..
@@ -46,7 +48,7 @@ public class MyPageFragment extends Fragment {
     private ArrayList<CheckData> checkDataList =DummyData.checkList;
     private ArrayList<FileNameData> fileNameDataList = DummyData.fileNameList;
     private DatabaseReference databaseReference;
-    private String fireBaseUserId;
+    private String fireBaseUserId, bookDatabase;
 
     @Nullable
     @Override
@@ -71,11 +73,17 @@ public class MyPageFragment extends Fragment {
         int index = firebaseUser.getEmail().indexOf("@");
         fireBaseUserId = firebaseUser.getEmail().substring(0, index);
 
+        Locale locale = getResources().getConfiguration().locale;
+        if (locale.getLanguage() == "en")
+            bookDatabase = "books_en";
+        if (locale.getLanguage() == "ko")
+            bookDatabase = "books_ko";
+
         bookDataList.clear();
         checkDataList.clear();
         fileNameDataList.clear();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("book");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(bookDatabase);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -121,6 +129,10 @@ public class MyPageFragment extends Fragment {
                         bookDataList.add(bookData);
                         fileNameData = new FileNameData(coverFileName, insideFileName);
                         fileNameDataList.add(fileNameData);
+
+                        Collections.reverse(bookDataList);
+                        Collections.reverse(checkDataList);
+                        Collections.reverse(fileNameDataList);
 
                         textView.setText(getResources().getString(R.string.selling_book));
                         Log.e(TAG, "myBookData: "+title);

@@ -26,12 +26,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class ChatActivity extends AppCompatActivity {
 
     private static final String TAG = "Error";
-    private static int check = 0;
-    private String destinationUserId, userId, sender, chatRoomUid;
+    private static int check;
+    private String destinationUserId, userId, sender, chatRoomUid, chatDatabase;
+    private Locale locale;
     private TextView userIdTxt;
     private EditText chatSendEdit;
     private Button chatSendBtn;
@@ -62,6 +64,13 @@ public class ChatActivity extends AppCompatActivity {
         if (sender == null)
             sender = userId;
 
+        locale = getResources().getConfiguration().locale;
+        if (locale.getLanguage() == "en")
+            chatDatabase = "chats_en";
+        if (locale.getLanguage() == "ko")
+            chatDatabase = "chats_ko";
+        check = 0;
+
         checkChatRoom();
     }
 
@@ -74,16 +83,14 @@ public class ChatActivity extends AppCompatActivity {
         comment.date = currentDate.format(date).toString();
 
         Log.e(TAG,"message: "+comment.message);
-        if (check == 1){
-            if (comment.message.getBytes().length <= 0)
-                Toast.makeText(this, getResources().getString(R.string.empty_editText), Toast.LENGTH_LONG).show();
-            firebaseDatabase.getReference().child("chatrooms").child(chatRoomUid).child("comments").push().setValue(comment);
-            chatSendEdit.setText(null);
-        }
+        if (comment.message.getBytes().length <= 0)
+            Toast.makeText(this, getResources().getString(R.string.empty_editText), Toast.LENGTH_LONG).show();
+        firebaseDatabase.getReference().child(chatDatabase).child(chatRoomUid).child("comments").push().setValue(comment);
+        chatSendEdit.setText(null);
     }
 
     public void checkChatRoom(){
-        firebaseDatabase.getReference().child("chatrooms").orderByChild("users/user").equalTo(sender)
+        firebaseDatabase.getReference().child(chatDatabase).orderByChild("users/user").equalTo(sender)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -92,13 +99,15 @@ public class ChatActivity extends AppCompatActivity {
                             if(chatData.users.containsValue(destinationUserId)){
                                 chatRoomUid = item.getKey();
                                 Log.e(TAG, "check: "+check);
-                                if (check == 0) {
+                                if (check == 1) {
+                                    Log.e(TAG, "check 0 before set comment");
                                     setComment();
-                                    check = 1;
                                 }
 
-                                chatRecyclerView.setLayoutManager(new LinearLayoutManager(ChatActivity.this));
-                                refreshData();
+                                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChatActivity.this);
+                                chatRecyclerView.setLayoutManager(linearLayoutManager);
+                                chatAdapter = new ChatAdapter();
+                                chatRecyclerView.setAdapter(chatAdapter);
                                 chatSendBtn.setEnabled(true);
                             }
                         }
@@ -109,16 +118,6 @@ public class ChatActivity extends AppCompatActivity {
 
                     }
                 });
-    }
-
-    private void refreshData() {
-        if (chatAdapter == null) {
-//            Log.e(TAG, "refresh null");
-            chatRecyclerView.setAdapter(new ChatAdapter());
-        } else{
-//            Log.e(TAG, "refresh else");
-            chatRecyclerView.getAdapter().notifyDataSetChanged();
-        }
     }
 
     public void onClick(View view) {
@@ -132,15 +131,17 @@ public class ChatActivity extends AppCompatActivity {
                 if(chatRoomUid == null) {
                     chatSendBtn.setEnabled(false);
                     Log.e(TAG, "onClick: null");
-                    firebaseDatabase.getReference().child("chatrooms").push().setValue(chatData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    firebaseDatabase.getReference().child(chatDatabase).push().setValue(chatData).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+                            check = 1;
                             checkChatRoom();
                         }
                     });
 
                 }else{
                     Log.e(TAG, "onClick: else " );
+                    check = 1;
                     setComment();
                 }
                 break;
@@ -154,7 +155,7 @@ public class ChatActivity extends AppCompatActivity {
     class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         public ChatAdapter() {
-            firebaseDatabase.getReference().child("chatrooms").child(chatRoomUid).child("comments")
+            firebaseDatabase.getReference().child(chatDatabase).child(chatRoomUid).child("comments")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -164,6 +165,8 @@ public class ChatActivity extends AppCompatActivity {
                                 commentsList.add(item.getValue(ChatData.Comment.class));
                             }
                             notifyDataSetChanged();
+                            chatRecyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+
                         }
 
                         @Override

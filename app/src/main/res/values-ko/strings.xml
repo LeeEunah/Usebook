@@ -14,7 +14,7 @@
     <string name="book_name">책 이름</string>
     <string name="book_author">저자</string>
     <string name="book_publish">출판사</string>
-    <string name="book_date">출판일(ex.20171005)</string>
+    <string name="book_date">출판일(ex.MM/DD/YYYY)</string>
     <string name="book_price">정가(ex.17000)</string>
     <string name="write_trace">필기한 흔적이 있나요?</string>
     <string name="line_pencil">밑줄(연필/샤프)</string>
@@ -96,4 +96,5 @@
     <string name="writer">%s 지음</string>
     <string name="date">%s월 %s일 %s년</string>
     <string name="date_format">날짜 형식을 맞춰주세요.</string>
+    <string name="language">한국어</string>
 </resources>

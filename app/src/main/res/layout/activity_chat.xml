@@ -42,7 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/chat_send_btn"
-        android:layout_below="@+id/linear" />
+        android:layout_below="@+id/linear"
+        app:stackFromEnd="false" />
 
     <Button
         android:id="@+id/chat_send_btn"

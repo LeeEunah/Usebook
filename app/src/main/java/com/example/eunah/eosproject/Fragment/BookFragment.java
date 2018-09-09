@@ -32,6 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Locale;
 
 /**
  * Created by leeeunah on 2018. 2. 11..
@@ -49,6 +51,7 @@ public class BookFragment extends Fragment{
     private ArrayList<CheckData> checkDataList = DummyData.checkList;
     private ArrayList<FileNameData> fileNameDataList = DummyData.fileNameList;
     private DatabaseReference databaseReference;
+    private String bookDatabase;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +70,6 @@ public class BookFragment extends Fragment{
 
         bookRecyclerview.setHasFixedSize(true);
         bookRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-
 
         dataRecall();
 
@@ -100,6 +102,12 @@ public class BookFragment extends Fragment{
 
     public void dataRecall(){
         Log.e(TAG, "dataRecall");
+        Locale locale = getResources().getConfiguration().locale;
+        if (locale.getLanguage() == "en")
+            bookDatabase = "books_en";
+        if (locale.getLanguage() == "ko")
+            bookDatabase = "books_ko";
+
         bookDataList.clear();
         checkDataList.clear();
         fileNameDataList.clear();
@@ -107,7 +115,7 @@ public class BookFragment extends Fragment{
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if(dataSnapshot.getKey().equals("book")) {
+                if(dataSnapshot.getKey().equals(bookDatabase)) {
                     for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                         Boolean underlinePencil = fileSnapshot.child("checkData").child("underlinePencil").getValue(Boolean.class);
                         Boolean underlinePen = fileSnapshot.child("checkData").child("underlinePen").getValue(Boolean.class);
@@ -150,13 +158,16 @@ public class BookFragment extends Fragment{
                         bookDataList.add(bookData);
                         fileNameData = new FileNameData(coverFileName, insideFileName);
                         fileNameDataList.add(fileNameData);
+
+                        Collections.reverse(bookDataList);
+                        Collections.reverse(checkDataList);
+                        Collections.reverse(fileNameDataList);
                     }
                 }
-                Log.e(TAG, "hi");
-                if(bookDataList.size() == 0){
-                    Log.e(TAG, "zero");
-                    textView2.setText(getResources().getString(R.string.no_my_book));
-                }
+//                if(bookDataList.size() == 0){
+//                    Log.e(TAG, "zero");
+//                    textView2.setText(getResources().getString(R.string.no_my_book));
+//                }
                 refreshData();
             }
 

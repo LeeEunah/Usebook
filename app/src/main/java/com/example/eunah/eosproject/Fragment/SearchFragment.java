@@ -32,6 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Locale;
 
 /**
  * Created by leeeunah on 2018. 2. 12..
@@ -49,7 +51,7 @@ public class SearchFragment extends Fragment{
     private ArrayList<CheckData> checkDataList =DummyData.checkList;
     private ArrayList<FileNameData> fileNameDataList = DummyData.fileNameList;
     private DatabaseReference databaseReference;
-    private String searchTxt;
+    private String searchTxt, bookDatabase;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,8 +88,14 @@ public class SearchFragment extends Fragment{
     }
 
     public void search(){
+        Locale locale = getResources().getConfiguration().locale;
+        if (locale.getLanguage() == "en")
+            bookDatabase = "books_en";
+        if (locale.getLanguage() == "ko")
+            bookDatabase = "books_ko";
+
         if(searchTxt != null){
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("book");
+            databaseReference = FirebaseDatabase.getInstance().getReference().child(bookDatabase);
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -135,6 +143,10 @@ public class SearchFragment extends Fragment{
                             bookDataList.add(bookData);
                             fileNameData = new FileNameData(coverFileName, insideFileName);
                             fileNameDataList.add(fileNameData);
+
+                            Collections.reverse(bookDataList);
+                            Collections.reverse(checkDataList);
+                            Collections.reverse(fileNameDataList);
 
                             textView.setText(getResources().getString(R.string.search_result, bookDataList.size()));
                             if (bookDataList.size() == 0)

@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Created by leeeunah on 2018. 9. 3..
@@ -39,7 +40,7 @@ public class UserMessageFragment extends Fragment{
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private String user, recentDate, recentMessage, destinationUser;
-    public String myId;
+    public String myId, chatDatabase;
 
     @Nullable
     @Override
@@ -60,25 +61,55 @@ public class UserMessageFragment extends Fragment{
     }
 
     public void UserMessageList(){
-        userMessageDataList.clear();
-        firebaseDatabase.getReference().child("chatrooms").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot item : dataSnapshot.getChildren()){
-                    destinationUser = item.child("users").child("destination").getValue(String.class);
-                    user = item.child("users").child("user").getValue(String.class);
-                    if (myId.equals(destinationUser) || myId.equals(user)){
-                        for (DataSnapshot contents : item.child("comments").getChildren()){
-                            recentDate = contents.child("date").getValue(String.class);
-                            recentMessage = contents.child("message").getValue(String.class);
-                        }
-                        userMessageData = new UserMessageData(recentDate, destinationUser, user, myId, recentMessage);
-                        userMessageDataList.add(userMessageData);
-                    } else continue;
-                }
+        Locale locale = getResources().getConfiguration().locale;
+        if (locale.getLanguage() == "en")
+            chatDatabase = "chats_en";
+        if (locale.getLanguage() == "ko")
+            chatDatabase = "chats_ko";
 
+        userMessageDataList.clear();
+        firebaseDatabase.getReference().child(chatDatabase).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                Log.e(TAG, "data: "+dataSnapshot);
+                destinationUser = dataSnapshot.child("users").child("destination").getValue(String.class);
+                user = dataSnapshot.child("users").child("user").getValue(String.class);
+                if (myId.equals(destinationUser) || myId.equals(user)){
+                    for (DataSnapshot contents : dataSnapshot.child("comments").getChildren()){
+                        recentDate = contents.child("date").getValue(String.class);
+                        recentMessage = contents.child("message").getValue(String.class);
+                    }
+                    userMessageData = new UserMessageData(recentDate, destinationUser, user, myId, recentMessage);
+                    userMessageDataList.add(userMessageData);
+                }
                 Log.e(TAG, "Data: "+ userMessageDataList.size());
                 refreshData();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                destinationUser = dataSnapshot.child("users").child("destination").getValue(String.class);
+                user = dataSnapshot.child("users").child("user").getValue(String.class);
+                if (myId.equals(destinationUser) || myId.equals(user)){
+                    for (DataSnapshot contents : dataSnapshot.child("comments").getChildren()){
+                        recentDate = contents.child("date").getValue(String.class);
+                        recentMessage = contents.child("message").getValue(String.class);
+                    }
+                    userMessageData.setDate(recentDate);
+                    userMessageData.setMessage(recentMessage);
+                }
+                refreshData();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
@@ -86,6 +117,31 @@ public class UserMessageFragment extends Fragment{
 
             }
         });
+//        firebaseDatabase.getReference().child(chatDatabase).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot item : dataSnapshot.getChildren()){
+//                    destinationUser = item.child("users").child("destination").getValue(String.class);
+//                    user = item.child("users").child("user").getValue(String.class);
+//                    if (myId.equals(destinationUser) || myId.equals(user)){
+//                        for (DataSnapshot contents : item.child("comments").getChildren()){
+//                            recentDate = contents.child("date").getValue(String.class);
+//                            recentMessage = contents.child("message").getValue(String.class);
+//                        }
+//                        userMessageData = new UserMessageData(recentDate, destinationUser, user, myId, recentMessage);
+//                        userMessageDataList.add(userMessageData);
+//                    } else continue;
+//                }
+//
+//                Log.e(TAG, "Data: "+ userMessageDataList.size());
+//                refreshData();
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
     }
 
     @Override

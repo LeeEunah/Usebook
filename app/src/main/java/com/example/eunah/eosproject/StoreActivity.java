@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.eunah.eosproject.Fragment.BookFragment;
@@ -24,6 +25,7 @@ import com.example.eunah.eosproject.data.FileNameData;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class StoreActivity extends FragmentActivity{
     private static final String TAG = "Error";
@@ -131,10 +133,6 @@ public class StoreActivity extends FragmentActivity{
                 intent = new Intent(getApplicationContext(), MyPageActivity.class);
                 startActivity(intent);
                 break;
-
-//            case R.id.search_edit:
-//                searchEdit.setText(null);
-//                break;
         }
     }
 }
