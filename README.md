@@ -12,6 +12,9 @@ I used "Android Studio" tool and the application is based on "Firebase".
 
 When I revise codes or add functions, I will update here.
 
+You can see my project video through Youtube.
+[Youtube Link]: <https://www.youtube.com/watch?v=c0XNogL_UG8>
+
 Thank you.
 
 Main functions:
