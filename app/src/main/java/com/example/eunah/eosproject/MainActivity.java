@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             config.locale = locale;
             getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
         }
-        if (language == "ko"){
+        else if (language == "ko"){
             Locale locale = new Locale("en");
             Locale.setDefault(locale);
             Configuration config = new Configuration();
